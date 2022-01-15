@@ -56,12 +56,12 @@ function Result({ category, results }) {
 function App() {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState([]);
+  // const [results, setResults] = useState([]);
   const [filterResults, setFilterResults] = useState([]);
   const getData = async () => {
     setLoading(true);
     try {
-      await fetch("result.json", {
+      return fetch("result.json", {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -69,21 +69,24 @@ function App() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setTimeout(() => {
-            // 1秒後才會看到LOG,模擬撈後端資料延遲
-            console.log("data", data);
-            setResults(data.resultData);
-            setLoading(false);
-          }, 1000);
+          const promise = new Promise(function (resolve, reject) {
+            //,模擬撈後端資料延遲
+            setTimeout(() => {
+              resolve(data);
+              setLoading(false);
+            }, 1000);
+          });
+
+          return promise;
         });
     } catch (e) {
       console.log("Error:", e);
     }
   };
 
-  const handleData = async () => {
-    await getData();
-    const filterData = results.filter((res) => {
+  const fetchData = async () => {
+    const data = await getData();
+    const filterData = await data.resultData.filter((res) => {
       if (res.name === category) return res;
     });
     setFilterResults(filterData);
@@ -91,11 +94,12 @@ function App() {
 
   useEffect(() => {
     if (category.length > 0) {
-      handleData();
+      fetchData();
     }
   }, [category]);
   return (
     <div className="container">
+      <h1 className="heading">大眾捷運系統路網範圍遺失物查詢功能</h1>
       <div>
         <fieldset>
           <legend>依「關鍵字」查詢</legend>
@@ -108,9 +112,6 @@ function App() {
 
         <fieldset>
           <legend>依「類別」查詢</legend>
-          <form>
-            <label>請輸入「關鍵字」：</label>
-          </form>
           <Categories SearchCategory={setCategory} />
         </fieldset>
       </div>

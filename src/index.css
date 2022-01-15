@@ -21,9 +21,15 @@ body {
   padding: 0 10px;
   font-size: 14px;
 }
+.heading {
+  color: #2164b1;
+  font-size: 120%;
+  margin: 8px 0px 10px 0px;
+  padding: 5px 0 8px 0px;
+}
 
 fieldset {
-  padding: 10px;
+  padding: 5px 10px;
   margin: 10px 0;
 }
 
@@ -57,12 +63,6 @@ legend {
 
 .categories-item:hover span {
   opacity: 0.7;
-}
-
-.category-space {
-  height: 100%;
-  width: 2px;
-  background: black;
 }
 
 .result {
