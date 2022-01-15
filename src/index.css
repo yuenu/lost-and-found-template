@@ -19,7 +19,6 @@ body {
 
 .container {
   padding: 0 10px;
-  font-size: 14px;
 }
 .heading {
   color: #2164b1;
@@ -83,4 +82,25 @@ th {
 td {
   background: #fff;
   padding: 3px 5px;
+}
+
+@media (max-width: 476px) {
+  body {
+    font-size: 16px;
+  }
+  .categories {
+    justify-content: space-between;
+  }
+  .categories-item {
+    width: 48%;
+    background: #eee;
+    text-align: center;
+    padding: 3px 0;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+
+  .categories-item span {
+    border: none;
+  }
 }

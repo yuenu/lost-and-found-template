@@ -74,7 +74,7 @@ function App() {
             setTimeout(() => {
               resolve(data);
               setLoading(false);
-            }, 1000);
+            }, 500);
           });
 
           return promise;
